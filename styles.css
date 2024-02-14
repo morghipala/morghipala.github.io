@@ -2,6 +2,7 @@ body {
     font-family: Product Light;
     margin: 0;
     word-wrap: break-word;
+    background-color: white;
 }
 header {
     background-color: black;
