@@ -40,7 +40,7 @@ gdjs.gameCode.GDNewTextObjects3= [];
 
 
 gdjs.gameCode.mapOfGDgdjs_9546gameCode_9546GDPauseButtonObjects2Objects = Hashtable.newFrom({"PauseButton": gdjs.gameCode.GDPauseButtonObjects2});
-gdjs.gameCode.asyncCallback9911620 = function (runtimeScene, asyncObjectsList) {
+gdjs.gameCode.asyncCallback9585100 = function (runtimeScene, asyncObjectsList) {
 {gdjs.evtTools.variable.setVariableBoolean(runtimeScene.getGame().getVariables().getFromIndex(0), false);
 }}
 gdjs.gameCode.eventsList0 = function(runtimeScene) {
@@ -51,7 +51,7 @@ gdjs.gameCode.eventsList0 = function(runtimeScene) {
 {
 {
 const asyncObjectsList = new gdjs.LongLivedObjectsList();
-runtimeScene.getAsyncTasksManager().addTask(gdjs.evtTools.runtimeScene.wait(0.05), (runtimeScene) => (gdjs.gameCode.asyncCallback9911620(runtimeScene, asyncObjectsList)));
+runtimeScene.getAsyncTasksManager().addTask(gdjs.evtTools.runtimeScene.wait(0.05), (runtimeScene) => (gdjs.gameCode.asyncCallback9585100(runtimeScene, asyncObjectsList)));
 }
 }
 
@@ -59,7 +59,7 @@ runtimeScene.getAsyncTasksManager().addTask(gdjs.evtTools.runtimeScene.wait(0.05
 
 
 };gdjs.gameCode.mapOfGDgdjs_9546gameCode_9546GDPauseButtonObjects2Objects = Hashtable.newFrom({"PauseButton": gdjs.gameCode.GDPauseButtonObjects2});
-gdjs.gameCode.asyncCallback9700204 = function (runtimeScene, asyncObjectsList) {
+gdjs.gameCode.asyncCallback11504148 = function (runtimeScene, asyncObjectsList) {
 {gdjs.evtTools.variable.setVariableBoolean(runtimeScene.getGame().getVariables().getFromIndex(0), true);
 }}
 gdjs.gameCode.eventsList1 = function(runtimeScene) {
@@ -70,7 +70,7 @@ gdjs.gameCode.eventsList1 = function(runtimeScene) {
 {
 {
 const asyncObjectsList = new gdjs.LongLivedObjectsList();
-runtimeScene.getAsyncTasksManager().addTask(gdjs.evtTools.runtimeScene.wait(0.05), (runtimeScene) => (gdjs.gameCode.asyncCallback9700204(runtimeScene, asyncObjectsList)));
+runtimeScene.getAsyncTasksManager().addTask(gdjs.evtTools.runtimeScene.wait(0.05), (runtimeScene) => (gdjs.gameCode.asyncCallback11504148(runtimeScene, asyncObjectsList)));
 }
 }
 
@@ -284,30 +284,30 @@ gdjs.copyArray(runtimeScene.getObjects("NewPanelSprite"), gdjs.gameCode.GDNewPan
 gdjs.copyArray(runtimeScene.getObjects("NewTiledSprite"), gdjs.gameCode.GDNewTiledSpriteObjects1);
 gdjs.copyArray(runtimeScene.getObjects("ResumeButton"), gdjs.gameCode.GDResumeButtonObjects1);
 gdjs.copyArray(runtimeScene.getObjects("SettingsButton"), gdjs.gameCode.GDSettingsButtonObjects1);
-{gdjs.evtTools.window.setGameResolutionSize(runtimeScene, gdjs.evtTools.window.getWindowInnerWidth(), gdjs.evtTools.window.getWindowInnerHeight());
+{gdjs.evtTools.window.setGameResolutionSize(runtimeScene, gdjs.evtTools.window.getWindowInnerWidth() * 1.2, gdjs.evtTools.window.getWindowInnerHeight() * 1.2);
 }{for(var i = 0, len = gdjs.gameCode.GDNewPanelSpriteObjects1.length ;i < len;++i) {
     gdjs.gameCode.GDNewPanelSpriteObjects1[i].getBehavior("Resizable").setWidth(308);
 }
 }{for(var i = 0, len = gdjs.gameCode.GDNewPanelSpriteObjects1.length ;i < len;++i) {
-    gdjs.gameCode.GDNewPanelSpriteObjects1[i].getBehavior("Resizable").setHeight(418);
+    gdjs.gameCode.GDNewPanelSpriteObjects1[i].getBehavior("Resizable").setHeight(330);
+}
+}{for(var i = 0, len = gdjs.gameCode.GDResumeButtonObjects1.length ;i < len;++i) {
+    gdjs.gameCode.GDResumeButtonObjects1[i].setCenterPositionInScene(gdjs.evtTools.window.getGameResolutionWidth(runtimeScene) / 2,gdjs.evtTools.window.getGameResolutionHeight(runtimeScene) / 2 - 120);
+}
+}{for(var i = 0, len = gdjs.gameCode.GDSettingsButtonObjects1.length ;i < len;++i) {
+    gdjs.gameCode.GDSettingsButtonObjects1[i].setCenterPositionInScene(gdjs.evtTools.window.getGameResolutionWidth(runtimeScene) / 2,gdjs.evtTools.window.getGameResolutionHeight(runtimeScene) / 2 - 44);
+}
+}{for(var i = 0, len = gdjs.gameCode.GDExitButtonObjects1.length ;i < len;++i) {
+    gdjs.gameCode.GDExitButtonObjects1[i].setCenterPositionInScene(gdjs.evtTools.window.getGameResolutionWidth(runtimeScene) / 2,gdjs.evtTools.window.getGameResolutionHeight(runtimeScene) / 2 + 22);
 }
 }{for(var i = 0, len = gdjs.gameCode.GDNewPanelSpriteObjects1.length ;i < len;++i) {
     gdjs.gameCode.GDNewPanelSpriteObjects1[i].setCenterPositionInScene(gdjs.evtTools.window.getGameResolutionWidth(runtimeScene) / 2,gdjs.evtTools.window.getGameResolutionHeight(runtimeScene) / 2);
 }
-}{for(var i = 0, len = gdjs.gameCode.GDSettingsButtonObjects1.length ;i < len;++i) {
-    gdjs.gameCode.GDSettingsButtonObjects1[i].setCenterPositionInScene(gdjs.evtTools.window.getGameResolutionWidth(runtimeScene) / 2,gdjs.evtTools.window.getGameResolutionHeight(runtimeScene) / 2 - 66);
-}
-}{for(var i = 0, len = gdjs.gameCode.GDResumeButtonObjects1.length ;i < len;++i) {
-    gdjs.gameCode.GDResumeButtonObjects1[i].setCenterPositionInScene(gdjs.evtTools.window.getGameResolutionWidth(runtimeScene) / 2,gdjs.evtTools.window.getGameResolutionHeight(runtimeScene) / 2 - 142);
-}
-}{for(var i = 0, len = gdjs.gameCode.GDExitButtonObjects1.length ;i < len;++i) {
-    gdjs.gameCode.GDExitButtonObjects1[i].setCenterPositionInScene(gdjs.evtTools.window.getGameResolutionWidth(runtimeScene) / 2,gdjs.evtTools.window.getGameResolutionHeight(runtimeScene) / 2);
-}
 }{for(var i = 0, len = gdjs.gameCode.GDFullScreenToggleObjects1.length ;i < len;++i) {
-    gdjs.gameCode.GDFullScreenToggleObjects1[i].setCenterPositionInScene(gdjs.evtTools.window.getGameResolutionWidth(runtimeScene) / 2 - 66,gdjs.evtTools.window.getGameResolutionHeight(runtimeScene) / 2 + 66);
+    gdjs.gameCode.GDFullScreenToggleObjects1[i].setCenterPositionInScene(gdjs.evtTools.window.getGameResolutionWidth(runtimeScene) / 2 - 66,gdjs.evtTools.window.getGameResolutionHeight(runtimeScene) / 2 + 132);
 }
 }{for(var i = 0, len = gdjs.gameCode.GDFullscreenObjects1.length ;i < len;++i) {
-    gdjs.gameCode.GDFullscreenObjects1[i].setCenterPositionInScene(gdjs.evtTools.window.getGameResolutionWidth(runtimeScene) / 2 + 44,gdjs.evtTools.window.getGameResolutionHeight(runtimeScene) / 2 + 66);
+    gdjs.gameCode.GDFullscreenObjects1[i].setCenterPositionInScene(gdjs.evtTools.window.getGameResolutionWidth(runtimeScene) / 2 + 44,gdjs.evtTools.window.getGameResolutionHeight(runtimeScene) / 2 + 132);
 }
 }{for(var i = 0, len = gdjs.gameCode.GDNewTiledSpriteObjects1.length ;i < len;++i) {
     gdjs.gameCode.GDNewTiledSpriteObjects1[i].setZOrder(-(100));

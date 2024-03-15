@@ -11,7 +11,7 @@ gdjs.WinCode.eventsList0 = function(runtimeScene) {
 let isConditionTrue_0 = false;
 {
 gdjs.copyArray(runtimeScene.getObjects("NewText"), gdjs.WinCode.GDNewTextObjects1);
-{gdjs.evtTools.window.setGameResolutionSize(runtimeScene, gdjs.evtTools.window.getWindowInnerWidth(), gdjs.evtTools.window.getWindowInnerHeight());
+{gdjs.evtTools.window.setGameResolutionSize(runtimeScene, gdjs.evtTools.window.getWindowInnerWidth() * 1.5, gdjs.evtTools.window.getWindowInnerHeight() * 1.5);
 }{for(var i = 0, len = gdjs.WinCode.GDNewTextObjects1.length ;i < len;++i) {
     gdjs.WinCode.GDNewTextObjects1[i].setCenterPositionInScene(gdjs.evtTools.window.getGameResolutionWidth(runtimeScene) / 2,gdjs.evtTools.window.getGameResolutionHeight(runtimeScene) / 2);
 }
