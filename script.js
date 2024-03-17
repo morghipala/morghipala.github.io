@@ -71,35 +71,22 @@ function loadCSSFilesAndAddLinksToHead() {
     // Percorso della directory "css"
     var cssDirectoryPath = "css/";
 
-    // Ottenere una lista dei file CSS dalla directory
-    fetch(cssDirectoryPath)
-        .then(response => response.text())
+    // Carica i file CSS da cssfiles.json
+    fetch("cssfiles.json")
+        .then(response => response.json())
         .then(data => {
-            // Creare un oggetto DOM temporaneo per analizzare il contenuto della directory
-            var parser = new DOMParser();
-            var xmlDoc = parser.parseFromString(data, "text/html");
-
-            // Ottenere una lista di tutti i link ai file CSS nella directory
-            var links = xmlDoc.getElementsByTagName("a");
-            var cssFiles = [];
-            for (var i = 0; i < links.length; i++) {
-                var href = links[i].getAttribute("href");
-                // Aggiungere solo i file CSS alla lista
-                if (href.endsWith(".css")) {
-                    cssFiles.push(href);
-                }
-            }
+            var files = data.files;
 
             // Aggiungi i collegamenti CSS direttamente a head
-            cssFiles.forEach(function (file) {
+            files.forEach(function (file) {
                 var link = document.createElement("link");
                 link.rel = "stylesheet";
                 link.type = "text/css";
-                link.href = cssDirectoryPath + file;
+                link.href = cssDirectoryPath + file + ".css"; // Aggiungi l'estensione .css
                 document.head.appendChild(link);
             });
         })
-        .catch(error => console.error('Error loading CSS files:', error));
+        .catch(error => console.error('Error loading cssfiles.json:', error));
 }
 
 // Chiamare le funzioni al caricamento della pagina
