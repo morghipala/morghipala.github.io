@@ -1,5 +1,4 @@
 #thumbnails {
-    display: block;
     padding: 0;
     margin: 0;
 }
@@ -8,6 +7,7 @@
     margin: 15px;
     border-radius: 25px;
     background-color: rgb(236, 236, 236);
+    width: calc(calc(100vw / 3) - 60px)
 }
 
 .thumbnail img {
@@ -20,19 +20,8 @@
     height: fit-content;
 }
 
-@media only screen and (min-width: 1024px) {
-    #thumbnails {
-        padding: 15px;
-        margin-right: auto;    
-        margin-left: auto;
-        column-count: 3;
-        column-gap: 30px;
-    }
-
+@media screen and (max-width: 600px){
     .thumbnail {
-        margin: 15px;
-        display: inline-block;
-        margin: 0 0 30px;
         width: 100%;
     }
 }
