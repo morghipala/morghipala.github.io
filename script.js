@@ -66,8 +66,8 @@ function loadHTMLFilesInOrder() {
         .catch(error => console.error('Error loading order.json:', error));
 }
 
-// Funzione per caricare i file CSS dalla directory "css"
-function loadCSSFiles() {
+// Funzione per caricare i file CSS dalla directory "css" e aggiungere i collegamenti direttamente a head
+function loadCSSFilesAndAddLinksToHead() {
     // Percorso della directory "css"
     var cssDirectoryPath = "css/";
 
@@ -90,7 +90,7 @@ function loadCSSFiles() {
                 }
             }
 
-            // Caricare ciascun file CSS e aggiungerlo all'head della pagina HTML
+            // Aggiungi i collegamenti CSS direttamente a head
             cssFiles.forEach(function (file) {
                 var link = document.createElement("link");
                 link.rel = "stylesheet";
@@ -104,6 +104,6 @@ function loadCSSFiles() {
 
 // Chiamare le funzioni al caricamento della pagina
 window.onload = function () {
-    loadCSSFiles();
+    loadCSSFilesAndAddLinksToHead();
     loadHTMLFilesInOrder();
 };
