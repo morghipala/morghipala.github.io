@@ -8,9 +8,10 @@ function loadHTMLFilesInOrder() {
         .then(response => response.json())
         .then(data => {
             var order = data.order;
+            var loadedCount = 0; // Contatore per tenere traccia dei file HTML caricati
 
             // Carica i file HTML in base all'ordine definito
-            order.forEach(function (fileName) {
+            order.forEach(function (fileName, index) {
                 var fullFileName = fileName + ".html"; // Aggiungi l'estensione .html
                 fetch(htmlDirectoryPath + fullFileName)
                     .then(response => {
@@ -29,6 +30,24 @@ function loadHTMLFilesInOrder() {
                         // Inserire il contenuto HTML nel div "thumbnails"
                         var thumbnailsDiv = document.getElementById("thumbnails");
                         thumbnailsDiv.appendChild(div);
+
+                        // Incrementa il contatore
+                        loadedCount++;
+
+                        // Controlla se tutti i file sono stati caricati
+                        if (loadedCount === order.length) {
+                            console.log("Tutti i file HTML sono stati caricati.");
+
+                            // Controlla se l'ordine è corretto
+                            var loadedOrder = Array.from(thumbnailsDiv.children).map(function (child) {
+                                return child.getAttribute("data-file");
+                            });
+                            if (JSON.stringify(order) === JSON.stringify(loadedOrder)) {
+                                console.log("L'ordine è corretto.");
+                            } else {
+                                console.error("L'ordine non è corretto.");
+                            }
+                        }
                     })
                     .catch(error => console.error('Error loading HTML file:', error));
             });

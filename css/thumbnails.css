@@ -26,14 +26,13 @@
         margin-right: auto;    
         margin-left: auto;
         column-count: 3;
-        column-gap: 1em;
+        column-gap: 30px;
     }
 
     .thumbnail {
         margin: 15px;
-        width: calc(calc(100vw / 3) - 51px);
         display: inline-block;
-        margin: 0 0 1em;
+        margin: 0 0 30px;
         width: 100%;
     }
 }
