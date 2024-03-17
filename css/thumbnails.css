@@ -22,6 +22,7 @@
 
 @media screen and (max-width: 600px){
     .thumbnail {
-        width: 100%;
+        width: calc(100vw - 30px);
+        margin: 15px auto 15px auto;
     }
 }

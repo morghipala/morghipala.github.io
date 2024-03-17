@@ -43,6 +43,8 @@ function loadHTMLFilesInOrder() {
         .catch(error => console.error('Error loading order.json:', error));
 }
 
+
+
 // Funzione per caricare i file CSS dalla directory "css"
 function loadCSSFiles() {
     // Percorso della directory "css"
@@ -73,16 +75,22 @@ window.onload = function () {
     loadHTMLFilesInOrder();
 };
 
+function grid(){
+if (window.matchMedia("(min-width: 600px)").matches) {
+    let magicGrid = new MagicGrid({
+        container: "#thumbnails",
+        static: false,
+        items: 11,
+        gutter: 15,
+        maxColumns: 3,
+        useTransform: true,
+        animate: true,
+    });
 
-let magicGrid = new MagicGrid({
-    container: "#thumbnails",
-    static: false,
-    items: 11,
-    gutter: 15,
-    maxColumns: 3,
-    useTransform: true,
-    animate: true,
-});
+    magicGrid.listen();
+} else {
+    magicGrid.unlisten();
+}
+}
 
-magicGrid.listen();
-
+setInterval(grid, 250)
