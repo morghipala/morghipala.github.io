@@ -84,8 +84,8 @@ function loadCSSFilesAndAddLinksToHead() {
             var cssFiles = [];
             for (var i = 0; i < links.length; i++) {
                 var href = links[i].getAttribute("href");
-                // Aggiungere solo i file CSS alla lista che non sono "index.html"
-                if (href.endsWith(".css") && href !== "index.html") {
+                // Aggiungere solo i file CSS alla lista
+                if (href.endsWith(".css")) {
                     cssFiles.push(href);
                 }
             }
