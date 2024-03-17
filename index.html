@@ -1,84 +1,39 @@
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <link rel="stylesheet" href="styles.css">
-   <link rel="stylesheet" href="fonts.css"> 
-   <title>poipensaquelchevuoi.it</title>
+    <meta charset="UTF-8">
+    <title>poipensaquelchevuoi.it</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="ffree73">
+    <link href="style.css" rel="stylesheet">
+
+    <!-- Favicon Classica per la maggior parte dei browser desktop -->
+    <link rel="icon" href="https://www.poipensaquelchevuoi.it/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="https://www.poipensaquelchevuoi.it/favicon.gif">
+    <!-- Apple Touch Icon per dispositivi Apple -->
+    <link rel="apple-touch-icon" sizes="180x180" href="https://www.poipensaquelchevuoi.it/apple-touch-icon.png">
+    <!-- Icone PNG per dispositivi Android e altri dispositivi mobili -->
+    <link rel="icon" type="image/png" sizes="32x32"
+        href="https://www.poipensaquelchevuoi.it/android-chrome-512x512.png">
+    <link rel="icon" type="image/png" sizes="16x16"
+        href="https://www.poipensaquelchevuoi.it/android-chrome-512x512.png">
 </head>
+
 <body>
-   <header>
-      <h2>poipensaquelchevuoi.it</h2>
-   </header>
-   <footer>
-      <div class="footext">
-          <p1>QUESTO SITO NON UTILIZZA COOKIES</p1><br>
-          <a href="info.html"><p2>INFORMAZIONI SUI DIRITTI</p2></a>
-      </div>
-   </footer>
-   <div class="home" id="data-list"></div>
-
-   <div class="loading"><div class="loader"></div></div>
-
-   <script>
-      fetch('https://raw.githubusercontent.com/morghipala/morghipala.github.io/main/data.json')
-         .then(response => response.json())
-         .then(data => {
-            const dataList = document.getElementById('data-list');
-
-            data.forEach(item => {
-               const box = document.createElement('div');
-               box.classList.add('box');
-
-               if (item.html === true) {
-                  const link = document.createElement('a');
-                  link.href = item.html_url;
-                  link.target = "_blank";
-                  link.appendChild(box);
-                  dataList.appendChild(link);
-               } else {
-                  dataList.appendChild(box);
-               }
-
-               if (item.immagine) {
-                  const immagine = document.createElement('img');
-                  immagine.src = item.immagine;
-                  box.appendChild(immagine);
-               }
-
-               const testoBox = document.createElement('div');
-               testoBox.classList.add('testoBOX');
-
-               if (item.titolo) {
-                  testoBox.innerHTML += `<h3>${item.titolo}</h3>`;
-               }
-
-               if (item.descrizione) {
-                  const descrizione = document.createElement('p');
-                  descrizione.classList.add('descrizione');
-                  descrizione.innerHTML = item.descrizione.replace(/\n/g, '<br>'); // Sostituisci i newline con il tag <br>
-                  testoBox.appendChild(descrizione);
-               }
-
-               if (item.link) {
-                  const link = document.createElement('a');
-                  link.href = item.link;
-                  link.textContent = "CLICCA PER CONTINUARE";
-                  testoBox.appendChild(link);
-               }
-
-               if (item.html === true) {
-                  const continuaParagraph = document.createElement('p');
-                  continuaParagraph.classList.add('continua');
-                  continuaParagraph.textContent = "CLICCA PER CONTINUARE";
-                  testoBox.appendChild(continuaParagraph);
-               }
-
-               box.appendChild(testoBox);
-            });
-         })
-         .catch(error => console.error('Errore nella richiesta:', error));
-   </script>
+    <img alt="" src="https://www.poipensaquelchevuoi.it/pix/logo.jpg" id="logo">
+    <div class="thumbnails">
+        <div class="thumbnail">
+            <img src="https://www.poipensaquelchevuoi.it/pix/ein_af.jpg" alt="">
+        </div>
+        <div class="thumbnail">
+            <img src="https://www.poipensaquelchevuoi.it/pix/ein_af.jpg" alt="">
+        </div>
+        <div class="thumbnail">
+            <img src="https://www.poipensaquelchevuoi.it/pix/ein_af.jpg" alt="">
+        </div>
+    </div>
 </body>
+
 </html>
