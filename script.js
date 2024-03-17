@@ -9,8 +9,8 @@ function loadHTMLFilesInOrder() {
         .then(data => {
             var order = data.order;
 
-            // Funzione per caricare un singolo file HTML
-            function loadFile(fileName) {
+            // Carica i file HTML in base all'ordine definito
+            order.forEach(function (fileName) {
                 var fullFileName = fileName + ".html"; // Aggiungi l'estensione .html
                 fetch(htmlDirectoryPath + fullFileName)
                     .then(response => {
@@ -31,58 +31,29 @@ function loadHTMLFilesInOrder() {
                         thumbnailsDiv.appendChild(div);
                     })
                     .catch(error => console.error('Error loading HTML file:', error));
-            }
-
-            // Carica i file HTML in base all'ordine definito
-            order.forEach(function (fileName) {
-                loadFile(fileName);
             });
-
-            // Carica i file HTML rimanenti nella directory che non sono definiti in order.json
-            fetch(htmlDirectoryPath)
-                .then(response => response.text())
-                .then(data => {
-                    // Creare un oggetto DOM temporaneo per analizzare il contenuto della directory
-                    var parser = new DOMParser();
-                    var xmlDoc = parser.parseFromString(data, "text/html");
-
-                    // Ottenere una lista di tutti i link ai file nella directory
-                    var links = xmlDoc.getElementsByTagName("a");
-                    var htmlFiles = [];
-                    for (var i = 0; i < links.length; i++) {
-                        var href = links[i].getAttribute("href");
-                        // Aggiungere solo i file HTML alla lista che non sono presenti in order.json
-                        if (href.endsWith(".html") && !order.includes(href.slice(0, -5))) { // Rimuovi l'estensione .html
-                            htmlFiles.push(href);
-                        }
-                    }
-
-                    // Caricare ciascun file HTML rimanente e aggiungerlo alla fine
-                    htmlFiles.forEach(function (file) {
-                        loadFile(file.slice(0, -5)); // Rimuovi l'estensione .html
-                    });
-                });
         })
         .catch(error => console.error('Error loading order.json:', error));
 }
 
-// Funzione per caricare i file CSS dalla directory "css" e aggiungere i collegamenti direttamente a head
-function loadCSSFilesAndAddLinksToHead() {
+// Funzione per caricare i file CSS dalla directory "css"
+function loadCSSFiles() {
     // Percorso della directory "css"
     var cssDirectoryPath = "css/";
 
-    // Carica i file CSS da cssfiles.json
+    // Carica i file CSS definiti in cssfiles.json
     fetch("cssfiles.json")
         .then(response => response.json())
         .then(data => {
-            var files = data.files;
+            var cssFiles = data.files;
 
-            // Aggiungi i collegamenti CSS direttamente a head
-            files.forEach(function (file) {
+            // Caricare ciascun file CSS e aggiungerlo all'head della pagina HTML
+            cssFiles.forEach(function (fileName) {
+                var fullFileName = fileName + ".css"; // Aggiungi l'estensione .css
                 var link = document.createElement("link");
                 link.rel = "stylesheet";
                 link.type = "text/css";
-                link.href = cssDirectoryPath + file + ".css"; // Aggiungi l'estensione .css
+                link.href = cssDirectoryPath + fullFileName;
                 document.head.appendChild(link);
             });
         })
@@ -91,6 +62,6 @@ function loadCSSFilesAndAddLinksToHead() {
 
 // Chiamare le funzioni al caricamento della pagina
 window.onload = function () {
-    loadCSSFilesAndAddLinksToHead();
+    loadCSSFiles();
     loadHTMLFilesInOrder();
 };

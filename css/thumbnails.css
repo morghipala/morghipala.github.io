@@ -17,19 +17,23 @@
 
 .thumbnail-text {
     padding: 20px;
+    height: fit-content;
 }
 
 @media only screen and (min-width: 1024px) {
     #thumbnails {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 30px;
-        /* Spazio tra le miniature */
         padding: 15px;
-        margin: 0;
+        margin-right: auto;    
+        margin-left: auto;
+        column-count: 3;
+        column-gap: 1em;
     }
 
     .thumbnail {
-        margin: 0;
+        margin: 15px;
+        width: calc(calc(100vw / 3) - 51px);
+        display: inline-block;
+        margin: 0 0 1em;
+        width: 100%;
     }
 }
