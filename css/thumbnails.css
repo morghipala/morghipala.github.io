@@ -1,20 +1,4 @@
-body {
-    font-family: Arial;
-}
-
-#logo {
-    display: block;
-    width: 600px;
-    margin: auto;
-}
-
-@media only screen and (max-width: 614px) {
-    #logo {
-        width: calc(100vw - 15px);
-    }
-}
-
-.thumbnails {
+#thumbnails {
     display: block;
     padding: 0;
     margin: 0;
@@ -22,14 +6,21 @@ body {
 
 .thumbnail {
     margin: 15px;
+    border-radius: 25px;
+    background-color: rgb(236, 236, 236);
 }
 
 .thumbnail img {
     width: 100%;
+    border-radius: 25px;
+}
+
+.thumbnail-text {
+    padding: 20px;
 }
 
 @media only screen and (min-width: 1024px) {
-    .thumbnails {
+    #thumbnails {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
         gap: 30px;
