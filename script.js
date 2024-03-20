@@ -84,13 +84,11 @@ if (window.matchMedia("(min-width: 600px)").matches) {
         gutter: 15,
         maxColumns: 3,
         useTransform: true,
-        animate: true,
+        animate: false,
     });
 
     magicGrid.listen();
-} else {
-    magicGrid.unlisten();
-}
+} 
 }
 
 setInterval(grid, 250)

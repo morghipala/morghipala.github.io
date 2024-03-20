@@ -4,7 +4,7 @@
 }
 
 .thumbnail {
-    margin: 15px;
+    margin: 0;
     border-radius: 25px;
     background-color: rgb(236, 236, 236);
     width: calc(calc(100vw / 3) - 60px)
@@ -15,9 +15,15 @@
     border-radius: 25px;
 }
 
-.thumbnail-text {
+.thumbnail-text, .thumbnail-subtext {
     padding: 20px;
     height: fit-content;
+    border-radius: 25px;
+}
+
+.thumbnail-subtext {
+    background-color: rgb(214, 214, 214);
+    margin-top: 10px;
 }
 
 @media screen and (max-width: 600px){
