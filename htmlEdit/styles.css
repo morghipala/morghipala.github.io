@@ -66,3 +66,68 @@ h2 {
     font-size: small;
     background-color: white;
 }
+
+@media only screen and (max-width: 620px) {
+
+    body {
+        display: block;
+    }
+
+    #editor-container,
+    #preview-container {
+        flex: 1;
+        height: calc(100vh / 2);
+        overflow: auto;
+        width: 100%;
+    }
+
+    #editor,
+    #preview,
+    .CodeMirror,
+    .cm-s-material-darker {
+        width: 100%;
+        margin: 0;
+        box-sizing: border-box;
+        font-family: 'Product Regular', Arial, sans-serif;
+        /* Aggiunto fallback di Arial e sans-serif */
+        top: 0;
+        bottom: 0;
+    }
+
+    #preview {
+        background-color: white;
+        border: none;
+        margin-bottom: 0;
+        height: 100%;
+    }
+
+    #editor,
+    .CodeMirror,
+    .cm-s-material-darker {
+        height: calc(100% - 30px);
+    }
+
+    #preview-container {
+        padding: 0;
+        overflow: hidden;
+    }
+
+    h2 {
+        margin: 0 10px 0 10px;
+        color: white;
+    }
+
+    .title {
+        display: flex;
+        align-items: normal;
+        width: 100%;
+    }
+
+    .button {
+        margin: 2.5px 5px 2.5px auto;
+        border: none;
+        border-radius: 20px;
+        font-size: small;
+        background-color: white;
+    }
+}

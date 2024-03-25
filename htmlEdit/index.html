@@ -17,9 +17,10 @@
 
     <div id="editor-container">
         <div class="title">
-        <h2 style="height: 30px;">Html Editor</h2>
-        <!-- Aggiunto pulsante per aprire l'anteprima in una nuova scheda -->
-        <button onclick="openPreviewInNewTab()" class="button">Apri Anteprima</button></div>
+            <h2 style="height: 30px;">Html Editor</h2>
+            <!-- Aggiunto pulsante per aprire l'anteprima in una nuova scheda -->
+            <button onclick="openPreviewInNewTab()" class="button">Apri Anteprima</button>
+        </div>
         <textarea id="editor" placeholder="Inserisci qui il tuo codice HTML..."></textarea>
     </div>
 
@@ -41,7 +42,7 @@
 
         const previewContainer = document.getElementById('preview-container');
 
-        // Funzione per aggiornare l'anteprima
+        // Funzione per aggiornare l'anteprima e salvare il codice nei cookies
         function updatePreview() {
             const code = editor.getValue();
             const newPreview = document.createElement('iframe');
@@ -52,13 +53,30 @@
             iframeDocument.open();
             iframeDocument.write(code);
             iframeDocument.close();
+
+            // Salva il codice nell'editor nei cookies
+            document.cookie = "editorCode=" + encodeURIComponent(code);
         }
 
-        // Aggiorna l'anteprima quando viene modificato il codice nell'editor
+        // Aggiorna l'anteprima e salva il codice nei cookies quando viene modificato il codice nell'editor
         editor.on('change', updatePreview);
 
-        // Aggiorna l'anteprima all'avvio
-        updatePreview();
+        // Aggiorna l'anteprima all'avvio e carica il codice salvato nei cookies
+        function loadEditorCodeFromCookies() {
+            const cookies = document.cookie.split(';');
+            for (let cookie of cookies) {
+                const [name, value] = cookie.split('=');
+                if (name.trim() === 'editorCode') {
+                    const decodedValue = decodeURIComponent(value);
+                    editor.setValue(decodedValue);
+                    updatePreview(); // Aggiorna l'anteprima
+                    break;
+                }
+            }
+        }
+
+        // Carica il codice salvato nei cookies all'avvio
+        loadEditorCodeFromCookies();
 
         // Funzione per aprire l'anteprima in una nuova scheda
         function openPreviewInNewTab() {
