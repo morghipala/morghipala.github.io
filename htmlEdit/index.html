@@ -32,8 +32,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.1/addon/hint/show-hint.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.1/mode/htmlmixed/htmlmixed.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.1/mode/xml/xml.min.js"></script>
-    <!-- Aggiunta della libreria js-cookie -->
-    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
     <script>
         const editor = CodeMirror.fromTextArea(document.getElementById('editor'), {
             mode: 'htmlmixed',
@@ -44,7 +42,7 @@
 
         const previewContainer = document.getElementById('preview-container');
 
-        // Funzione per aggiornare l'anteprima e salvare il codice nei cookies
+        // Funzione per aggiornare l'anteprima
         function updatePreview() {
             const code = editor.getValue();
             const newPreview = document.createElement('iframe');
@@ -55,31 +53,34 @@
             iframeDocument.open();
             iframeDocument.write(code);
             iframeDocument.close();
-
-            // Salva il codice nell'editor nei cookies utilizzando js-cookie
-            Cookies.set('editorCode', code);
+            // Salvataggio del codice nell'editor nei cookie
+            document.cookie = "editorCode=" + encodeURIComponent(code);
         }
 
-        // Aggiorna l'anteprima e salva il codice nei cookies quando viene modificato il codice nell'editor
+        // Aggiorna l'anteprima quando viene modificato il codice nell'editor
         editor.on('change', updatePreview);
-
-        // Aggiorna l'anteprima all'avvio e carica il codice salvato nei cookies
-        function loadEditorCodeFromCookies() {
-            const codeFromCookie = Cookies.get('editorCode');
-            if (codeFromCookie) {
-                editor.setValue(codeFromCookie);
-                updatePreview(); // Aggiorna l'anteprima
-            }
-        }
-
-        // Carica il codice salvato nei cookies all'avvio
-        loadEditorCodeFromCookies();
 
         // Funzione per aprire l'anteprima in una nuova scheda
         function openPreviewInNewTab() {
             const code = editor.getValue();
             const newWindow = window.open();
             newWindow.document.write(code);
+        }
+
+        // Richiama il codice salvato nei cookie all'avvio
+        window.onload = function () {
+            const editorCode = getCookie("editorCode");
+            if (editorCode) {
+                editor.setValue(decodeURIComponent(editorCode));
+                updatePreview();
+            }
+        }
+
+        // Funzione per ottenere il valore di un cookie
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
         }
     </script>
 
