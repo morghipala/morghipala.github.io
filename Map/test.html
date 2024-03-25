@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ricerca Indirizzo</title>
+<style>
+    #results {
+        display: none;
+        position: absolute;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        padding: 10px;
+        max-height: 200px;
+        overflow-y: auto;
+        z-index: 1;
+    }
+</style>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var results = document.getElementById("results");
+        var addressInput = document.getElementById("address");
+
+        addressInput.addEventListener("input", searchAddress);
+        document.addEventListener("click", function(event) {
+            if (!results.contains(event.target) && event.target !== addressInput) {
+                results.style.display = "none";
+            }
+        });
+    });
+
+    function searchAddress() {
+        var address = document.getElementById("address").value;
+        var url = "https://api.opencagedata.com/geocode/v1/json?q=" + encodeURIComponent(address) + "&key=4d211542199d4671a917573c25af6855";
+
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                displayResults(data);
+            })
+            .catch(error => console.error('Errore nella richiesta:', error));
+    }
+
+    function displayResults(data) {
+        var results = document.getElementById("results");
+        results.innerHTML = ""; // Clear previous results
+
+        if (data.results.length > 0) {
+            data.results.forEach(result => {
+                var suggestDiv = document.createElement("div");
+                suggestDiv.textContent = result.formatted;
+                results.appendChild(suggestDiv);
+            });
+            results.style.display = "block"; // Show results
+        } else {
+            results.textContent = "Nessun risultato trovato.";
+            results.style.display = "none"; // Hide results if no results found
+        }
+    }
+</script>
+</head>
+<body>
+    <h1>Ricerca Indirizzo</h1>
+    <input type="text" id="address" placeholder="Inserisci un indirizzo">
+    <div id="results"></div>
+</body>
+</html>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,32 +11,149 @@
   <script src="res/maptilersdk.umd.js"></script>
   <link href="res/style.css" rel="stylesheet">
   <link href="style.css" rel="stylesheet">
+  <link href="fonts.css" rel="stylesheet">
   <style>
     body {
       margin: 0;
       padding: 0;
+      font-family: 'Product Regular';
     }
 
-    
+    body * {
+      margin: 0;
+      padding: 0;
+      font-family: 'Product Regular';
+    }
   </style>
 </head>
 
 <body>
-  <div id="map"></div>
+  <div id="search">
+    <input type="text" id="address" placeholder="Inserisci un indirizzo">
+    <button onclick="searchAddress()">Cerca</button>
+    <div id="results"></div>
+    <div id="map"></div>
+  </div>
+
+  <script src="https://unpkg.com/osmtogeojson@3.0.0/osmtogeojson.js"></script>
 
   <script>
-      maptilersdk.config.apiKey = 'F1PyrvkqPy8ciNrOdJ2S';
+    maptilersdk.config.apiKey = 'F1PyrvkqPy8ciNrOdJ2S';
 
-      const map = new maptilersdk.Map({
-        container: 'map', // container's id or the HTML element to render the map
-        style: maptilersdk.MapStyle.STREETS,
-        center: [16.62662018, 49.2125578], // starting position [lng, lat]
-        zoom: 14, // starting zoom
-      });
+    const map = new maptilersdk.Map({
+      container: 'map', // container's id or the HTML element to render the map
+      style: maptilersdk.MapStyle.STREETS,
+      center: [16.62662018, 49.2125578], // starting position [lng, lat]
+      zoom: 14, // starting zoom
+    });
 
-      const gc = new maptilersdkMaptilerGeocoder.GeocodingControl({});
+    var marker;
 
-      map.addControl(gc, 'top-left');
+    function searchAddress() {
+      var address = document.getElementById("address").value;
+      var url = "https://api.opencagedata.com/geocode/v1/json?q=" + encodeURIComponent(address) + "&key=4d211542199d4671a917573c25af6855";
+
+      fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          displayResults(data);
+        })
+        .catch(error => console.error('Errore nella richiesta:', error));
+    }
+
+    function displayResults(data) {
+      var results = document.getElementById("results");
+      results.innerHTML = ""; // Clear previous results
+
+      if (data.results.length > 0) {
+        data.results.forEach(result => {
+          var suggestDiv = document.createElement("div");
+          suggestDiv.className = "suggest";
+
+          var name = document.createElement("div");
+          var city = result.components._normalized_city || result.components.county || result.formatted.split(',')[0]; // Considera anche county
+          name.textContent = city; // Prende il nome della città, county o il testo prima della virgola
+          suggestDiv.appendChild(name);
+
+          var location = document.createElement("div");
+          location.className = "location";
+
+          var country = result.components.country;
+          if (city && city !== result.formatted.split(',')[0]) {
+            location.textContent = result.formatted.split(',')[0];
+            if (country && country !== city) {
+              location.textContent += ", " + country;
+            }
+            suggestDiv.appendChild(location);
+          } else if (country && country !== city) {
+            location.textContent = country;
+            suggestDiv.appendChild(location);
+          }
+
+          suggestDiv.addEventListener('click', function () {
+            var coordinates = [result.geometry.lng, result.geometry.lat];
+            map.flyTo({
+              center: coordinates,
+              essential: true // Animazione obbligatoria
+            });
+
+            // Rimuovi marker precedente se esiste
+            if (marker) {
+              marker.remove();
+            }
+
+            // Aggiungi marker sulla posizione del risultato
+            marker = new maptilersdk.Marker()
+              .setLngLat(coordinates)
+              .addTo(map);
+
+            // Se il risultato è una città, evidenzia i confini
+            if (city) {
+              highlightCityBoundaries(city);
+            } else if (county) {
+              highlightCityBoundaries(county);
+            }
+          });
+
+          results.appendChild(suggestDiv);
+        });
+      } else {
+        results.textContent = "Nessun risultato trovato.";
+      }
+    }
+
+    function highlightCityBoundaries(city) {
+      // Effettua una richiesta per ottenere i confini della città da OpenStreetMap
+      var url = "https://nominatim.openstreetmap.org/search?format=json&q=" + encodeURIComponent(city) + "&polygon_geojson=1";
+
+      fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          if (data.length > 0 && data[0].geojson) {
+            // Rimuovi layer precedente se esiste
+            if (map.getSource('city-boundaries')) {
+              map.removeLayer('city-boundaries');
+              map.removeSource('city-boundaries');
+            }
+
+            // Aggiungi il poligono dei confini della città
+            map.addLayer({
+              'id': 'city-boundaries',
+              'type': 'fill',
+              'source': {
+                'type': 'geojson',
+                'data': data[0].geojson
+              },
+              'paint': {
+                'fill-color': '#ff0000',
+                'fill-opacity': 0.05
+              }
+            });
+          }
+        })
+        .catch(error => console.error('Errore nella richiesta:', error));
+    }
   </script>
 </body>
+
 </html>
