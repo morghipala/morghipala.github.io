@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editor HTML con Anteprima</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.1/codemirror.min.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.1/theme/material-darker.min.css">
+    <!-- Utilizzo del tema scuro "material-darker" -->
+    <link rel="stylesheet" href="../css/fonts.css"> <!-- Assicurati che il percorso del file CSS sia corretto -->
+    <link rel="stylesheet" href="styles.css"> <!-- Assicurati che il percorso del file CSS sia corretto -->
+</head>
+
+<body>
+
+    <div id="editor-container">
+        <div class="title">
+        <h2 style="height: 30px;">Html Editor</h2>
+        <!-- Aggiunto pulsante per aprire l'anteprima in una nuova scheda -->
+        <button onclick="openPreviewInNewTab()" class="button">Apri Anteprima</button></div>
+        <textarea id="editor" placeholder="Inserisci qui il tuo codice HTML..."></textarea>
+    </div>
+
+    <div id="preview-container">
+        <iframe id="preview"></iframe>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.1/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.1/addon/hint/show-hint.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.1/mode/htmlmixed/htmlmixed.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.1/mode/xml/xml.min.js"></script>
+    <script>
+        const editor = CodeMirror.fromTextArea(document.getElementById('editor'), {
+            mode: 'htmlmixed',
+            lineNumbers: true,
+            theme: 'material-darker', // Utilizzo del tema scuro "material-darker"
+            extraKeys: { "Ctrl-Space": "autocomplete" } // Abilita il completamento automatico con Ctrl-Space
+        });
+
+        const previewContainer = document.getElementById('preview-container');
+
+        // Funzione per aggiornare l'anteprima
+        function updatePreview() {
+            const code = editor.getValue();
+            const newPreview = document.createElement('iframe');
+            newPreview.id = 'preview';
+            previewContainer.innerHTML = ''; // Rimuove l'iframe esistente
+            previewContainer.appendChild(newPreview); // Aggiunge il nuovo iframe
+            const iframeDocument = newPreview.contentDocument;
+            iframeDocument.open();
+            iframeDocument.write(code);
+            iframeDocument.close();
+        }
+
+        // Aggiorna l'anteprima quando viene modificato il codice nell'editor
+        editor.on('change', updatePreview);
+
+        // Aggiorna l'anteprima all'avvio
+        updatePreview();
+
+        // Funzione per aprire l'anteprima in una nuova scheda
+        function openPreviewInNewTab() {
+            const code = editor.getValue();
+            const newWindow = window.open();
+            newWindow.document.write(code);
+        }
+    </script>
+
+</body>
+
+</html>

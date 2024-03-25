@@ -3,36 +3,52 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>poipensaquelchevuoi.it</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="ffree73">
-    <script src="https://unpkg.com/magic-grid/dist/magic-grid.cjs.js"></script>
+    <title>HTML to PDF Converter</title>
 
-    
-    <link rel="icon" href="https://www.poipensaquelchevuoi.it/favicon.ico" type="image/x-icon">
-    <link rel="shortcut icon" href="https://www.poipensaquelchevuoi.it/favicon.gif">
-    
-    <link rel="apple-touch-icon" sizes="180x180" href="https://www.poipensaquelchevuoi.it/apple-touch-icon.png">
-    
-    <link rel="icon" type="image/png" sizes="32x32"
-        href="https://www.poipensaquelchevuoi.it/android-chrome-512x512.png">
-    <link rel="icon" type="image/png" sizes="16x16"
-        href="https://www.poipensaquelchevuoi.it/android-chrome-512x512.png">
+    <!-- html2canvas library -->
+    <script src="html2canvas.min.js"></script>
+
+    <!-- jsPDF library -->
+    <script src="https://unpkg.com/jspdf@latest/dist/jspdf.umd.min.js"></script>
+
+    <script>
+        window.jsPDF = window.jspdf.jsPDF;
+
+        // Convert HTML content to PDF
+        function Convert_HTML_To_PDF() {
+            var doc = new jsPDF();
+
+            // Source HTML content entered by user
+            var userHTML = document.getElementById("htmlInput").value;
+
+            // Create a div element to contain the user's HTML content
+            var tempDiv = document.createElement("div");
+            tempDiv.innerHTML = userHTML;
+
+            doc.html(tempDiv, {
+                callback: function (doc) {
+                    // Save the PDF
+                    doc.save('document-html.pdf');
+                },
+                margin: [10, 10, 10, 10],
+                autoPaging: 'text',
+                x: 0,
+                y: 0,
+                width: 190, // target width in the PDF document
+                windowWidth: 675 // window width in CSS pixels
+            });
+        }
+    </script>
 </head>
 
 <body>
-    <img alt="" src="images/logo.jpg" id="logo">
-    <div id="thumbnails">
-        <div class="thumbnail">
-            <img src="images/ein_af.jpg" alt="">
-            <div class="thumbnail-text">
-                <b>L' innovazione è un'attività  di pensiero che, elevando il livello di conoscenza attuale, perfeziona un processo migliorando quindi la qualità  di vita dell'uomo... E' cambiamento che genera progresso umano, porta con sè valori e risultati positivi, mai negativi.</b>
-            </div>
-        </div>
+    <!-- HTML content input field -->
+    <label for="htmlInput">Enter HTML content:</label><br>
+    <textarea id="htmlInput" rows="10" cols="50"></textarea><br>
 
-    </div>
-    <script src="script.js"></script>
+    <!-- Trigger button -->
+    <button onclick="Convert_HTML_To_PDF();">Convert HTML to PDF</button>
 </body>
 
 </html>
