@@ -11,6 +11,7 @@
     <!-- Utilizzo del tema scuro "material-darker" -->
     <link rel="stylesheet" href="../css/fonts.css"> <!-- Assicurati che il percorso del file CSS sia corretto -->
     <link rel="stylesheet" href="styles.css"> <!-- Assicurati che il percorso del file CSS sia corretto -->
+
 </head>
 
 <body>
@@ -18,8 +19,9 @@
     <div id="editor-container">
         <div class="title">
             <h2 style="height: 30px;">Html Editor</h2>
+            <button onclick="loginGoogle()" class="button forcefont">Accedi con Google</button>
             <!-- Aggiunto pulsante per aprire l'anteprima in una nuova scheda -->
-            <button onclick="openPreviewInNewTab()" class="button forcefont">Apri Anteprima</button>
+            <button onclick="openPreviewInNewTab()" class="button forcefont" style="margin-left: 0;">Apri Anteprima</button>
         </div>
         <textarea id="editor" placeholder="Inserisci qui il tuo codice HTML..."></textarea>
     </div>
@@ -83,7 +85,56 @@
             if (parts.length === 2) return parts.pop().split(';').shift();
         }
     </script>
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-analytics.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
 
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+            apiKey: "AIzaSyCNsZS7lZS1o1HYHB9uqTEQl3V-VlmhO14",
+            authDomain: "htmleditor-a9d5e.firebaseapp.com",
+            projectId: "htmleditor-a9d5e",
+            storageBucket: "htmleditor-a9d5e.appspot.com",
+            messagingSenderId: "480560690730",
+            appId: "1:480560690730:web:c368fb9a0c4beb8e187553",
+            measurementId: "G-KGRF2BKCCP"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+    </script>
+<script>
+    var provider = new firebase.auth.GoogleAuthProvider();
+    function loginGoogle(){
+    firebase.auth()
+  .signInWithPopup(provider)
+  .then((result) => {
+    /** @type {firebase.auth.OAuthCredential} */
+    var credential = result.credential;
+
+    // This gives you a Google Access Token. You can use it to access the Google API.
+    var token = credential.accessToken;
+    // The signed-in user info.
+    var user = result.user;
+    // IdP data available in result.additionalUserInfo.profile.
+      // ...
+  }).catch((error) => {
+    // Handle Errors here.
+    var errorCode = error.code;
+    var errorMessage = error.message;
+    // The email of the user's account used.
+    var email = error.email;
+    // The firebase.auth.AuthCredential type that was used.
+    var credential = error.credential;
+    // ...
+  });
+}
+</script>
 </body>
 
 </html>
