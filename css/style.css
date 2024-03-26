@@ -1,3 +1,19 @@
+body {
+    font-family: 'Product';
+}
+
+#logo {
+    display: block;
+    width: 600px;
+    margin: auto;
+}
+
+@media only screen and (max-width: 614px) {
+    #logo {
+        width: calc(100vw - 15px);
+    }
+}
+
 #thumbnails {
     padding: 0;
     margin: 0;
@@ -15,7 +31,8 @@
     border-radius: 25px;
 }
 
-.thumbnail-text, .thumbnail-subtext {
+.thumbnail-text,
+.thumbnail-subtext {
     padding: 20px;
     height: fit-content;
     border-radius: 25px;
@@ -26,7 +43,7 @@
     margin-top: 10px;
 }
 
-@media screen and (max-width: 600px){
+@media screen and (max-width: 600px) {
     .thumbnail {
         width: calc(100vw - 30px);
         margin: 15px auto 15px auto;

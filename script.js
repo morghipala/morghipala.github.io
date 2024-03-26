@@ -42,36 +42,8 @@ function loadHTMLFilesInOrder() {
         })
         .catch(error => console.error('Error loading order.json:', error));
 }
-
-
-
-// Funzione per caricare i file CSS dalla directory "css"
-function loadCSSFiles() {
-    // Percorso della directory "css"
-    var cssDirectoryPath = "css/";
-
-    // Carica i file CSS definiti in cssfiles.json
-    fetch("cssfiles.json")
-        .then(response => response.json())
-        .then(data => {
-            var cssFiles = data.files;
-
-            // Caricare ciascun file CSS e aggiungerlo all'head della pagina HTML
-            cssFiles.forEach(function (fileName) {
-                var fullFileName = fileName + ".css"; // Aggiungi l'estensione .css
-                var link = document.createElement("link");
-                link.rel = "stylesheet";
-                link.type = "text/css";
-                link.href = cssDirectoryPath + fullFileName;
-                document.head.appendChild(link);
-            });
-        })
-        .catch(error => console.error('Error loading cssfiles.json:', error));
-}
-
 // Chiamare le funzioni al caricamento della pagina
 window.onload = function () {
-    loadCSSFiles();
     loadHTMLFilesInOrder();
 };
 
